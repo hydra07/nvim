@@ -2,7 +2,7 @@ return {
   {
     "L3MON4D3/LuaSnip",
     dependencies = {
-      -- "evesdropper/luasnip-latex-snippets.nvim",
+      "evesdropper/luasnip-latex-snippets.nvim",
       {
         "rafamadriz/friendly-snippets",
         config = function()
@@ -49,24 +49,24 @@ return {
       end, {})
     end,
   },
-  {
-    "madskjeldgaard/cheeky-snippets.nvim",
-    dependencies = {
-      "L3MON4D3/LuaSnip",
-    },
-    config = function()
-      local cheeky = require "cheeky"
-      cheeky.setup {
-        langs = {
-          all = true,
-          lua = true,
-          cpp = true,
-          asm = true,
-          cmake = true,
-          markdown = true,
-          supercollider = true,
-        },
-      }
-    end,
-  },
+  -- {
+  --   "madskjeldgaard/cheeky-snippets.nvim",
+  --   dependencies = {
+  --     "L3MON4D3/LuaSnip",
+  --   },
+  --   config = function()
+  --     local cheeky = require "cheeky"
+  --     cheeky.setup {
+  --       langs = {
+  --         all = true,
+  --         lua = true,
+  --         cpp = true,
+  --         asm = true,
+  --         cmake = true,
+  --         markdown = true,
+  --         supercollider = true,
+  --       },
+  --     }
+  --   end,
+  -- },
 }

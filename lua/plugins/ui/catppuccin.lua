@@ -74,7 +74,7 @@ return {
         alpha = false,
         barbar = false,
         beacon = false,
-        cmp = true,
+        -- cmp = true,
         coc_nvim = false,
         dap = { enabled = true, enable_ui = true },
         dashboard = false,

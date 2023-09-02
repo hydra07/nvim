@@ -1,4 +1,5 @@
 return {
+  {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
   {
     --terminal
     'akinsho/toggleterm.nvim', version = "*", config = true
@@ -50,44 +51,58 @@ return {
       }
     end,
   },
+  -- {
+  --   "AckslD/muren.nvim",
+  --   keys = {
+  --     {
+  --       "<r",
+  --       ":MurenToggle<CR>",
+  --     },
+  --     toggle_side = 's<Tab>',
+  --     toggle_options_focus = '<C-s>',
+  --     toggle_option_under_cursor = '<CR>',
+  --   },
+  --   config = function()
+  --     require("muren").setup()
+  --   end,
+  -- },
+  -- {
+  --   "cshuaimin/ssr.nvim",
+  --   name = "ssr",
+  --   keys = {
+  --     {
+  --       mode = { "n", "x" },
+  --       ",r",
+  --       function()
+  --         require("ssr").open()
+  --       end,
+  --     },
+  --   },
+  --   opts = {
+  --     min_width = 50,
+  --     min_height = 5,
+  --     keymaps = {
+  --       close = "q",
+  --       next_match = "n",
+  --       prev_match = "N",
+  --       replace_all = "<leader><cr>",
+  --     },
+  --   },
+  -- },
+  -- "machakann/vim-highlightedyank",
+  -- "ggandor/lightspeed.nvim",
   {
-    "AckslD/muren.nvim",
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    -- stylua: ignore
     keys = {
-      {
-        "<r",
-        ":MurenToggle<CR>",
-      },
-      toggle_side = 's<Tab>',
-      toggle_options_focus = '<C-s>',
-      toggle_option_under_cursor = '<CR>',
-    },
-    config = function()
-      require("muren").setup()
-    end,
-  },
-  {
-    "cshuaimin/ssr.nvim",
-    name = "ssr",
-    keys = {
-      {
-        mode = { "n", "x" },
-        ",r",
-        function()
-          require("ssr").open()
-        end,
-      },
-    },
-    opts = {
-      min_width = 50,
-      min_height = 5,
-      keymaps = {
-        close = "q",
-        next_match = "n",
-        prev_match = "N",
-        replace_all = "<leader><cr>",
-      },
-    },
-  },
-  "machakann/vim-highlightedyank",
-
+      { "s", mode = { "n", "o", "x" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+        },
+   },
 }

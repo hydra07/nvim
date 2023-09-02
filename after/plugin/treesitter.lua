@@ -13,6 +13,7 @@ treesitter.setup {
     "rust",
     "toml",
     "markdown",
+    "markdown_inline",
   },
   sync_install = false,
       auto_install = true,

@@ -33,7 +33,7 @@ o.termguicolors = true
 vim.cmd [[
   augroup highlight_yank
     autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 300)
   augroup END
 ]]
 

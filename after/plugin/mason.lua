@@ -2,6 +2,17 @@ local mason = require("mason")
 local lspconfig = require("mason-lspconfig")
 
 mason.setup {
+  ui = {
+    icons = {
+        package_installed = "✓",
+        package_pending = "➜",
+        package_uninstalled = "✗"
+    }
+}
+}
+
+lspconfig.setup {
+  automatically_install = true,
   ensure_installed = {
     'tsserver',
     'lua_ls',
@@ -9,11 +20,9 @@ mason.setup {
     'pylsp',
     'pyright',
     'tailwindcss',
-    'html'
-  }
-}
-
-lspconfig.setup {
-  automatically_install = true,
+    'html',
+    'cssls',
+    'jsonls',
+  },
 }
 

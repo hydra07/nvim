@@ -1,8 +1,5 @@
 local cmp = require("cmp")
 local luasnip = require ("luasnip")
-local neogen = require ("neogen")
-local compare = require ("cmp.config.compare")
-local types = require ("cmp.types")
 local lspkind = require("lspkind")
 local duplicates = {
   buffer = 1,
@@ -80,7 +77,7 @@ cmp.setup({
     --     end
     --   end,
     -- },
-    ["<CR>"] = cmp.mapping.confirm { select = true },
+    ["<CR>"] = cmp.mapping.confirm { select = false },
     ["<Tab>"] = cmp.mapping(function(fallback)
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
       local line_text = vim.fn.getline(line)
@@ -92,8 +89,8 @@ cmp.setup({
         cmp.select_next_item(select_opts)
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
-      elseif neogen.jumpable() then
-        neogen.jump_next()
+      -- elseif neogen.jumpable() then
+      --   neogen.jump_next()
       else
         cmp.complete()
       end
@@ -105,8 +102,8 @@ cmp.setup({
         cmp.select_prev_item(select_opts)
       elseif luasnip.jumpable(-1) then
         luasnip.jump(-1)
-      elseif neogen.jumpable(true) then
-        neogen.jump_prev()
+      -- elseif neogen.jumpable(true) then
+      --   neogen.jump_prev()
       else
         fallback()
       end

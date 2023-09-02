@@ -1,5 +1,15 @@
 local wk = require("which-key")
 wk.register({
+  --lsp
+  g ={
+    D = { "<Cmd>lua vim.lsp.buf.declaration()<CR>", "Go to Declaration" },
+    d = { "<Cmd>lua vim.lsp.buf.definition()<CR>", "Go to Definition" },
+    I = { "<Cmd>lua vim.lsp.buf.implementation()<CR>", "Go to Implementation" },
+    K = { "<Cmd>lua vim.lsp.buf.hover()<CR>", "Show Hover Information" },
+    G = { "<Cmd>norm! G<CR>", "Last Line" },
+    
+  },
+
   -- Đối với Telescope
   t = {
     name = "Telescope",
@@ -12,6 +22,7 @@ wk.register({
   },
   --leader
   ['<leader>'] = {
+    l = { "<CMD>Lspsaga outline<CR>", "Show Outline" },
     --save
     w = { "<CMD>update<CR>", "Save" }, 
     --quit
@@ -20,14 +31,19 @@ wk.register({
     v = { "<CMD>vsplit<CR>", "Vertical Split" },
     h = { "<CMD>split<CR>", "Horizontal Split" },
     --comment
-    ['/'] = { "gcc", "Comment" },
+    -- ['/'] = { "gcc", "Comment" },
     --
     -- r = {"<CMD>MurenToggle<CR>", "Search and Replace"}
+    t = {
+      h = {"<CMD>split term://$SHELL<CR>", "Horizontal Terminal"},
+      v = {"<CMD>vsplit term://$SHELL<CR>", "Vertical Terminal"},
+    },
+    k = {"<cmd>Lspsaga hover_doc<CR>", "Hover Doc"},
     
   },
   -- NeoTree
-  e = { "<CMD>Neotree toggle<CR>", "Toggle NeoTree" },
-  o = { "<CMD>Neotree focus<CR>", "Focus NeoTree" },
+  -- e = { "<CMD>Neotree toggle<CR>", "Toggle NeoTree" },
+  -- o = { "<CMD>Neotree focus<CR>", "Focus NeoTree" },
 
   -- Buffer
   ['<TAB>'] = { "<CMD>bnext<CR>", "Next Buffer" },

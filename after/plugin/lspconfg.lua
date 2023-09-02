@@ -1,7 +1,7 @@
 local lspconfig = require('lspconfig')
 local cmp = require('cmp')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
-local neodev = require('neodev')
+-- local neodev = require('neodev')
 
 local capabilities = cmp_nvim_lsp.default_capabilities() 
 
@@ -16,14 +16,15 @@ local on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  --buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  --buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  -- buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 end
 
 lspconfig.pyright.setup({
   capabilities = capabilities,
+  on_attach = on_attach
 })
 
 lspconfig.tsserver.setup({
@@ -45,10 +46,12 @@ lspconfig.html.setup({
 
 lspconfig.tailwindcss.setup({
   capabilities = capabilities,
+  on_attach = on_attach
 })
 
 lspconfig.lua_ls.setup({
   capabilities = capabilities,
+  on_attach = on_attach
 })
 
 lspconfig.cssls.setup({
@@ -57,25 +60,15 @@ lspconfig.cssls.setup({
 })
 
 --neodev
-neodev.setup({
-  override = function(root_dir, library)
-    if root_dir:find("/etc/nixos", 1, true) == 1 then
-      library.enabled = true
-      library.plugins = true
-    end
-  end,
-})
-
-
--- cmp.setup({
---   -- Cấu hình về snippet và các thiết lập khác
---   sources = {
---     { name = 'nvim_lsp' },
---     -- Các nguồn khác như buffer, vsnip, ...
---   },
+-- neodev.setup({
+--   override = function(root_dir, library)
+--     if root_dir:find("/etc/nixos", 1, true) == 1 then
+--       library.enabled = true
+--       library.plugins = true
+--     end
+--   end,
 -- })
 
--- Diagnostic symbols in the sign column (gutter)
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
