@@ -8,8 +8,28 @@ return {
     "nvimdev/lspsaga.nvim",
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
-      'nvim-tree/nvim-web-devicons' 
-    }
+      'nvim-tree/nvim-web-devicons',
+      {'ray-x/lsp_signature.nvim',
+        event = "VeryLazy",
+        opts = {},
+        config = function() require("lsp_signature").setup({
+            bind = true,
+            handler_opts = {
+            border = "rounded"
+            },
+            transparency = 1,
+          })
+          end
+      },
+    },
+  },
+  {
+    "jay-babu/mason-null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
+    },
   },
   {
     --treesitter
@@ -20,6 +40,7 @@ return {
       "RRethy/nvim-treesitter-endwise",
       "yioneko/nvim-yati",
       "windwp/nvim-ts-autotag",
+      "HiPhish/nvim-ts-rainbow2"
     },
   },
   {
@@ -30,38 +51,31 @@ return {
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
     'hrsh7th/nvim-cmp',
-
-    -- For vsnip users.
-    -- 'hrsh7th/cmp-vsnip',
-    -- 'hrsh7th/vim-vsnip',
-
-    -- For luasnip users.
-    'L3MON4D3/LuaSnip',
-    'saadparwaiz1/cmp_luasnip',
-
-    -- For ultisnips users.
-    -- 'SirVer/ultisnips',
-    -- 'quangnguyen30192/cmp-nvim-ultisnips',
-
-    -- For snippy users.
-    -- 'dcampos/nvim-snippy',
-    -- 'dcampos/cmp-snippy',
-
   },
   {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
     opts = {} -- this is equalent to setup({}) function
   },
-  -- {
-  --   "danymat/neogen", 
-  --   dependencies = "nvim-treesitter/nvim-treesitter", 
-  --   config = true,
-  -- },
-  -- { "folke/neodev.nvim", opts = {} },
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "mason.nvim" },
-  }
+  },
+  {
+    --refactoring
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    }
+  },
+  {
+  "folke/trouble.nvim",
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  { --Emmet, quickly expand code html, jsx, tsx
+    'mattn/emmet-vim'
+  },
+  "AndrewRadev/tagalong.vim", 
 }

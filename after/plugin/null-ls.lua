@@ -1,8 +1,8 @@
-local status, null_ls = pcall(require, "null-ls")
-if (not status) then return end
-
+local null_ls = require("null-ls")
+local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
+local code_actions = null_ls.builtins.code_actions
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
 local lsp_formatting = function(bufnr)
   vim.lsp.buf.format({
     filter = function(client)
@@ -11,35 +11,47 @@ local lsp_formatting = function(bufnr)
     bufnr = bufnr,
   })
 end
-
 null_ls.setup {
   sources = {
-    null_ls.builtins.formatting.prettierd,
-    null_ls.builtins.diagnostics.eslint_d.with({
-      diagnostics_format = '[eslint] #{m}\n(#{c})'
+    code_actions.refactoring,
+    formatting.prettierd,
+    formatting.stylua,
+
+    --for python
+    formatting.black.with({
+      command = "black",
+			args = {"--quiet", "--fast", "-"}
     }),
-    null_ls.builtins.diagnostics.fish,
-    null_ls.builtins.diagnostics.flake8,
-    
+    diagnostics.ruff, 
   },
+  -- on_attach = function(client, bufnr)
+  --   if client.supports_method("textDocument/formatting") then
+  --     vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+  --     vim.api.nvim_create_autocmd("BufWritePre", {
+  --       group = augroup,
+  --       buffer = bufnr,
+  --       callback = function()
+  --         lsp_formatting(bufnr)
+  --       end,
+  --     })
+  --   end
+  -- end
   on_attach = function(client, bufnr)
+    -- Enable formatting on sync
     if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
+      local format_on_save = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        group = format_on_save,
         buffer = bufnr,
         callback = function()
-          lsp_formatting(bufnr)
+          vim.lsp.buf.format({
+            bufnr = bufnr,
+            filter = function(_client)
+              return _client.name == "null-ls"
+            end
+          })
         end,
       })
     end
   end
 }
-
-vim.api.nvim_create_user_command(
-  'DisableLspFormatting',
-  function()
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = 0 })
-  end,
-  { nargs = 0 }
-)

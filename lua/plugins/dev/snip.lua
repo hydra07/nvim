@@ -13,10 +13,6 @@ return {
         "honza/vim-snippets",
         config = function()
           require("luasnip.loaders.from_snipmate").lazy_load()
-
-          -- One peculiarity of honza/vim-snippets is that the file with the global snippets is _.snippets, so global snippets
-          -- are stored in `ls.snippets._`.
-          -- We need to tell luasnip that "_" contains global snippets:
           require("luasnip").filetype_extend("all", { "_" })
         end,
       },
@@ -49,6 +45,7 @@ return {
       end, {})
     end,
   },
+  'saadparwaiz1/cmp_luasnip',
   -- {
   --   "madskjeldgaard/cheeky-snippets.nvim",
   --   dependencies = {
