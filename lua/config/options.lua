@@ -30,11 +30,11 @@ o.inccommand = "split"
 o.splitbelow = "splitright"
 o.termguicolors = true
 --hihglight yank
-vim.cmd [[
+vim.cmd([[
   augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 300)
   augroup END
-]]
+]])
 
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.colorscheme("catppuccin")
