@@ -1,5 +1,11 @@
 local wk = require("which-key")
 wk.register({
+  ["<leader>xx"] = { "<Cmd>lua require('trouble').open()<CR>", "Trouble" },
+  ["<leader>xw"] = { "<Cmd>lua require('trouble').open('workspace_diagnostics')<CR>", "Workspace Diagnostics" },
+  ["<leader>xd"] = { "<Cmd>lua require('trouble').open('document_diagnostics')<CR>", "Document Diagnostics" },
+  ["<leader>xq"] = { "<Cmd>lua require('trouble').open('quickfix')<CR>", "Quickfix" },
+  ["<leader>xl"] = { "<Cmd>lua require('trouble').open('loclist')<CR>", "Location List" },
+  ["gR"] = { "<Cmd>lua require('trouble').open('lsp_references')<CR>", "LSP References" },
   --lsp
   g ={
     D = { "<Cmd>lua vim.lsp.buf.declaration()<CR>", "Go to Declaration" },

@@ -1,14 +1,14 @@
 return {
-  {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
+  {'akinsho/bufferline.nvim', dependencies = 'nvim-tree/nvim-web-devicons'},
   {
     --terminal
-    'akinsho/toggleterm.nvim', version = "*", config = true
+    'akinsho/toggleterm.nvim', config = true
   },
   {
     --telescope
     "nvim-telescope/telescope.nvim",
-    keys = keys,
-    config = setup,
+    -- keys = keys,
+    -- config = setup,
     dependencies = {
       "nvim-lua/popup.nvim",
       "nvim-lua/plenary.nvim",
@@ -32,7 +32,7 @@ return {
   init = function()
     vim.o.timeout = true
     vim.o.timeoutlen = 300
-  end,  
+  end,
   },
   {
     --autopairs
@@ -51,46 +51,27 @@ return {
       }
     end,
   },
-  -- {
-  --   "AckslD/muren.nvim",
-  --   keys = {
-  --     {
-  --       "<r",
-  --       ":MurenToggle<CR>",
-  --     },
-  --     toggle_side = 's<Tab>',
-  --     toggle_options_focus = '<C-s>',
-  --     toggle_option_under_cursor = '<CR>',
-  --   },
-  --   config = function()
-  --     require("muren").setup()
-  --   end,
-  -- },
-  -- {
-  --   "cshuaimin/ssr.nvim",
-  --   name = "ssr",
-  --   keys = {
-  --     {
-  --       mode = { "n", "x" },
-  --       ",r",
-  --       function()
-  --         require("ssr").open()
-  --       end,
-  --     },
-  --   },
-  --   opts = {
-  --     min_width = 50,
-  --     min_height = 5,
-  --     keymaps = {
-  --       close = "q",
-  --       next_match = "n",
-  --       prev_match = "N",
-  --       replace_all = "<leader><cr>",
-  --     },
-  --   },
-  -- },
-  -- "machakann/vim-highlightedyank",
-  -- "ggandor/lightspeed.nvim",
+  {
+    --highlight comment
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    config = function()
+      require("todo-comments").setup {
+        -- signs = true,
+        -- highlight = {
+        --   before = "", -- "fg" or "bg" or empty
+        --   keyword = "bg", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
+        --   after = "fg", -- "fg" or "bg" or empty
+        --   pattern = [[.*<(KEYWORDS)\s*:]], -- pattern used for highlightng (vim regex)
+        --   comments_only = true, -- uses treesitter to match keywords in comments only
+        --   max_line_len = 400, -- ignore lines longer than this
+        --   exclude = {}, -- list of file types to exclude highlighting
+        -- },
+      }
+    end,
+  },
+  "machakann/vim-highlightedyank",
+  "kylechui/nvim-surround",
   {
     "folke/flash.nvim",
     event = "VeryLazy",

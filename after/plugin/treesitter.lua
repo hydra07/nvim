@@ -37,9 +37,9 @@ treesitter.setup {
         default_lazy = false,
         default_fallback = "auto",
       },
-      -- matchup = {
-      --   enable = true,
-      -- },
+      matchup = {
+        enable = true,
+      },
       textobjects = {
         select = {
           enable = true,
@@ -89,5 +89,14 @@ treesitter.setup {
       context_commentstring = {
         enable = true,
       },
+      rainbow = {
+          enable = true,
+          -- list of languages you want to disable the plugin for
+          disable = { 'python'},
+          -- Which query to use for finding delimiters
+          query = 'rainbow-parens',
+          -- Highlight the entire buffer all at once
+          strategy = require('ts-rainbow').strategy.global,
+        }
 
 }
