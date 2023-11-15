@@ -1,9 +1,24 @@
 -- nvim-cmp setup
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
-
+local copilot = require 'copilot_cmp'
+local source_mapping = {
+  nvim_lsp = "[]",
+  luasnip = "[]",
+  buffer = "[]",
+  treesitter = "[]",
+  path = "[]",
+  rg = "[]",
+  copilot = "[]"
+}
+local duplicates = {
+  buffer = 1,
+  path = 1,
+  nvim_lsp = 0,
+  luasnip = 1,
+}
 luasnip.config.setup {}
-
+copilot.setup {}
 cmp.setup {
 snippet = {
   expand = function(args)
@@ -39,11 +54,11 @@ mapping = cmp.mapping.preset.insert {
   },
 
   sources = {
-    { name = "luasnip" },
-    { name = "nvim_lsp" },
-    { name = "buffer" },
-    { 
-      name = "html-css",
+    { name = "copilot", group_index = 1 },
+    { name = "luasnip", group_index = 2 },
+    { name = "nvim_lsp",group_index = 2 },
+    { name = "buffer", group_index = 3 },
+    { name = "html-css",
       option = {
         max_count = {}, -- not ready yet
 
@@ -52,7 +67,6 @@ mapping = cmp.mapping.preset.insert {
             "js",
             "jsx",
             "vue"
-
         }, -- set the file types you want the plugin to work on
         file_extensions = { "css", "sass", "less" }, -- set the local filetypes from which you want to derive classes
         style_sheets = {
@@ -63,18 +77,38 @@ mapping = cmp.mapping.preset.insert {
       }
     },
     { name = "nvim_lua" },
-    { name = "path" },
+    { name = "path", group_index = 3 },
   },
-  window = {
-    completion = cmp.config.window.bordered{
-      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-      -- side_padding = -999,
-      col_offset = 0
-    },
-    documentation = {
-      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-      -- winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
-    }
+
+  -- window = {
+  --   completion = cmp.config.window.bordered{
+  --     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  --     side_padding = -999,
+  --     col_offset = 0
+  --   },
+  --   documentation = {
+  --     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  --     winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
+  --   }
+  -- },
+  formatting = {
+    fields = {"kind", "abbr", "menu"},
+    format = function (entry, item)
+      local kind = require("lspkind").cmp_format { mode = "symbol_text", maxwidth = 40 }(entry,item)
+      local source = entry.source.name
+      local menu = source_mapping[source]
+      local duplicates_default = 0
+      local strings = vim.split(kind.kind, "%s", {trimempty = true })
+      kind.kind = strings[1] .. " "
+      kind.menu = menu
+
+      local max_width = 80
+      if max_width ~= 0 and #kind.abbr > max_width then
+        kind.abbr = string.sub(kind.abbr, 1, max_width -1) .. "..."
+      end
+      kind.dup = duplicates[source] or duplicates_default
+      return kind
+    end
   }
 }
 --

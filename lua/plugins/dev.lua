@@ -52,7 +52,9 @@ pyright = {
 volar = {
   filetypes = {'vue', 'typescript', 'javascript', 'json'},
 },
-rust_analyzer = {},
+rust_analyzer = {
+  filetypes = {'rs'},  
+},
 tsserver = {
   filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact", "javascript.jsx" },
   cmd = { "typescript-language-server", "--stdio" }

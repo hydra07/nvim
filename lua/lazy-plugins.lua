@@ -22,6 +22,7 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
+  "onsails/lspkind.nvim",
   {
     "L3MON4D3/LuaSnip",
     dependencies = { "rafamadriz/friendly-snippets" },
@@ -34,14 +35,36 @@ require('lazy').setup({
   { 'hrsh7th/cmp-buffer' },
   { 'hrsh7th/cmp-path' },
   { 'hrsh7th/cmp-cmdline' },
-  { "Jezda1337/nvim-html-css",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-lua/plenary.nvim"
-        },
-        config = function()
-            require("html-css"):setup()
-        end
+  -- { "Jezda1337/nvim-html-css",
+  --       dependencies = {
+  --           "nvim-treesitter/nvim-treesitter",
+  --           "nvim-lua/plenary.nvim"
+  --       },
+  --       config = function()
+  --           require("html-css"):setup()
+  --       end
+  -- },
+  
+  {
+    "zbirenbaum/copilot-cmp",
+    event = {"InsertEnter", "LspAttach"},
+    fix_pairs = true,
+    config = function ()
+      require("copilot_cmp").setup()
+    end
+  },
+  -- "github/copilot.vim",
+  { "zbirenbaum/copilot.lua" ,
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    opts = {
+      suggestion = {enabled = false },
+      panel = {enabled = false },
+      filetypes = {
+        markdown = true,
+        help = true
+      }
+    } 
   },
 
   { 'folke/which-key.nvim', opts = {} },
