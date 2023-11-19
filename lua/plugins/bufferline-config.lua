@@ -15,7 +15,7 @@ bufferline.setup({
     diagnostics = "nvim_lsp",
     -- separator_style =  "slant" ,
     show_tab_indicators = true,
-    buffer_close_icon = "窱",
+    buffer_close_icon = "",
     diagnostics_indicator = function(count, level)
         local icon = level:match("error") and " " or ""
         return " " .. icon .. count
