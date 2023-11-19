@@ -1,4 +1,4 @@
-require("started")
+require("Lazy")
 require("base-configs")
 require("lazy-plugins")
 require("plugins-config")
