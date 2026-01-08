@@ -18,12 +18,22 @@ return {
   --     },
   --   },
   -- },
+  -- {
+  --   "folke/noice.nvim",
+  --   opts = {
+  --     cmdline = {
+  --       enable = true,
+  --       view = "cmdline",
+  --     },
+  --   },
+  -- },
   {
-    "folke/noice.nvim",
+    "folke/tokyonight.nvim",
     opts = {
-      cmdline = {
-        enable = true,
-        view = "cmdline",
+      transparent = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
       },
     },
   },
